@@ -1,21 +1,24 @@
+'use strict';
+
 var express = require('express');
 
 var app = express();
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 // Public folder static config
 app.use(express.static('public'));
-app.use(express.static('src/views'));
+app.set('views', 'src/views');
+app.set('view engine', 'ejs');
 
 // Routes
-app.get('/', function(req, res) {
-  res.send('Hello World!');
+app.get('/', function (req, res) {
+    res.render('index', {list: ['a', 'b']});
 });
 
-app.get('/books', function(req, res) {
-  res.send('Hello World!');
+app.get('/books', function (req, res) {
+    res.send('Hello World!');
 });
 
-app.listen(port, function(err) {
-  console.log('running server on port: ' + port);
+app.listen(port, function (err) {
+    console.log('running server on port: ' + port);
 });
